@@ -1,11 +1,11 @@
-import { DiscordClient, logger } from '@projectdiscord/core';
+import { BaseClient, logger } from '@projectdiscord/core';
 import { EventInterface } from '@projectdiscord/shared';
 import { ActivityType } from 'discord.js';
 
 const readyEvent: EventInterface<'clientReady'> = {
 	name: 'clientReady',
 	options: { once: true, rest: false },
-	execute(client: DiscordClient) {
+	execute(client: BaseClient) {
 		logger.info(`[READY] Logged in as ${client.user?.tag}`);
 
 		client.user?.setPresence({

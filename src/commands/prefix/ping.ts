@@ -1,5 +1,5 @@
 import { PrefixCommandInterface } from '@projectdiscord/shared';
-import { DiscordClient } from '@projectdiscord/core';
+import { BaseClient } from '@projectdiscord/core';
 import { Message } from 'discord.js';
 
 const command: PrefixCommandInterface = {
@@ -9,7 +9,7 @@ const command: PrefixCommandInterface = {
 	usage: '!ping',
 	cooldown: 3,
 	isDeveloperOnly: false,
-	async execute(client: DiscordClient, message: Message) {
+	async execute(client: BaseClient, message: Message) {
 		return message.reply('🏓 Pong!');
 	},
 };

@@ -1,4 +1,4 @@
-import { DiscordClient, logger } from '@projectdiscord/core';
+import { BaseClient, logger } from '@projectdiscord/core';
 import { EventInterface } from '@projectdiscord/shared';
 import { Interaction, Collection } from 'discord.js';
 
@@ -6,7 +6,7 @@ const cooldowns = new Collection<string, Collection<string, number>>();
 
 const event: EventInterface<'interactionCreate'> = {
 	name: 'interactionCreate',
-	async execute(client: DiscordClient, interaction: Interaction) {
+	async execute(client: BaseClient, interaction: Interaction) {
 		try {
 			if (!interaction.isChatInputCommand()) return;
 

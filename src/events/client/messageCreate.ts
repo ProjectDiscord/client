@@ -1,4 +1,4 @@
-import { DiscordClient, logger } from '@projectdiscord/core';
+import { BaseClient, logger } from '@projectdiscord/core';
 import { EventInterface } from '@projectdiscord/shared';
 import { Message, Collection } from 'discord.js';
 
@@ -10,7 +10,7 @@ const event: EventInterface<'messageCreate'> = {
 		once: false,
 		rest: false,
 	},
-	async execute(client: DiscordClient, message: Message) {
+	async execute(client: BaseClient, message: Message) {
 		if (!message.author || message.author.bot) return;
 
 		const prefix = client.config.client.client_prefix || '!';
