@@ -1,6 +1,6 @@
 import { BaseClient, logger, getAllVersions } from '@projectdiscord/core';
 import { EventInterface } from '@projectdiscord/shared';
-import { ActivityType } from 'discord.js';
+import { ActivityType, PresenceData, PresenceUpdateStatus } from 'discord.js';
 
 const readyEvent: EventInterface<'clientReady'> = {
 	name: 'clientReady',
@@ -15,16 +15,91 @@ const readyEvent: EventInterface<'clientReady'> = {
 			.join('\n');
 		logger.info(`🔖 Workspace Versions:\n${formatted}`);
 
-		client.user?.setPresence({
-			status: 'online',
-			activities: [
-				{
-					name: "ProjectDiscord's new bot template!",
-					type: ActivityType.Custom,
-					state: '⚡ Powered by ProjectDiscord',
-				},
-			],
-		});
+		const presences: PresenceData[] = [
+			{
+				activities: [
+					{
+						name: '',
+						type: ActivityType.Custom,
+						state: '⚡ Powered by ProjectDiscord',
+					},
+				],
+				status: PresenceUpdateStatus.Online,
+			},
+			{
+				activities: [
+					{
+						name: 'with TypeScript & Discord.js',
+						type: ActivityType.Playing,
+					},
+				],
+				status: PresenceUpdateStatus.Idle,
+			},
+			{
+				activities: [
+					{
+						name: 'with ProjectDiscord bots',
+						type: ActivityType.Playing,
+					},
+				],
+				status: PresenceUpdateStatus.Online,
+			},
+			{
+				activities: [
+					{
+						name: 'over your servers 👀',
+						type: ActivityType.Watching,
+					},
+				],
+				status: PresenceUpdateStatus.DoNotDisturb,
+			},
+			{
+				activities: [
+					{
+						name: 'GitHub commits fly by',
+						type: ActivityType.Watching,
+					},
+				],
+				status: PresenceUpdateStatus.Idle,
+			},
+			{
+				activities: [
+					{
+						name: 'your feedback 📢',
+						type: ActivityType.Listening,
+					},
+				],
+				status: PresenceUpdateStatus.Online,
+			},
+			{
+				activities: [
+					{
+						name: 'in the bot leaderboard 🏆',
+						type: ActivityType.Competing,
+					},
+				],
+				status: PresenceUpdateStatus.Online,
+			},
+			{
+				activities: [
+					{
+						name: '',
+						type: ActivityType.Custom,
+						state: '✨ Running on the new bot template',
+					},
+				],
+				status: PresenceUpdateStatus.Idle,
+			},
+		];
+
+		let index = 0;
+		const updatePresence = () => {
+			client.user?.setPresence(presences[index]);
+			index = (index + 1) % presences.length;
+		};
+
+		updatePresence();
+		setInterval(updatePresence, 60_000);
 	},
 };
 
